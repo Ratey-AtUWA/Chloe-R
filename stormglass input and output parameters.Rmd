@@ -1,0 +1,101 @@
+---
+editor_options:
+  markdown:
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+library(flextable)
+  set_flextable_defaults(font.family = 'sans', theme_fun = "theme_zebra", 
+        font.size = 11, text.align = "right",padding.left = 1, padding.right = 1,
+        padding.top = 2, padding.bottom = 2, na_str="–")
+```
+
+# Weather
+The weather request is used to fetch weather data for a point. The Storm Glass
+API provides marine weather as well as global weather for land and lakes.
+
+To get marine data you include a coordinate at sea in your request, and to get
+data for land and lakes - simply send in a coordinate located on land or on a
+lake.
+
+### Point Request
+
+Point Requests are used to retrieve data for a single coordinate.
+
+GET <https://api.stormglass.io/v2/weather/point>
+
+### Available Query Parameters
+
+```{r query-params, echo=FALSE}
+qp <- read.csv("stormglass-qp.csv")
+flextable(qp) |> width(width=c(2,2,3.5,10.5), unit="cm") |>
+  align(j=2, align="center") |> font(j=1, fontname = "Courier New") |> 
+  fontsize(j=1, size=10) |> valign(valign="top")
+```
+
+### Response Format
+
+The response will be sent back in the form of a JSON object. The resource root
+contains two objects - data and meta.
+
+*Meta*
+
+The meta object contains information about the API request. Such as requested
+latitude and longitude, your daily quota and how many requests you have made so
+far today.
+
+*Data*
+
+The data object contains the actual weather data on an hourly basis. One item in
+the data array can contain:
+
+```{r output-params, echo=F}
+op <- read.csv("stormglass-output-parameters.csv")
+flextable(op) |> width(width=c(4,13), unit="cm") |>
+  font(j=1, fontname = "Courier New") |> 
+  fontsize(j=1, size=10) |> valign(valign="top")
+```
+&nbsp;  
+
+Each parameter (*e.g*. `swellHeight`) is an object that contains a key and value
+for each available source, *i.e*. { sg: 10.3 }.
+
+### Example using `R` code
+
+```{r eval=FALSE}
+library(httr)
+library(jsonlite)
+library(lubridate)
+
+# set start time
+start <- as.POSIXct("2022-06-01 00:00:00")
+
+# set end date
+end <- as.POSIXct("2022-06-30 23:59:59")
+
+# API endpoint and parameters
+url <- "https://api.stormglass.io/v2/weather/point"
+params <- list(
+  lat = 35.288,
+  lng = 113.894,
+  params = paste(c("precipitation","airTemperature","windDirection","windSpeed"),
+                 collapse = ","),
+  start = as.numeric(start),
+  end = as.numeric(end)
+)
+
+# API headers
+headers <- c("Authorization" = secret) # secret contains API key!
+
+# Make the API request
+response <- GET(url, query = params, add_headers(.headers=headers))
+
+# Convert response to JSON
+json_data <- fromJSON(content(response, "text"))
+
+# Do something with response data.
+# (Note: You may need to adjust the data processing steps based on the structure of the JSON response)
+print(json_data)
+```
+
