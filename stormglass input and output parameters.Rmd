@@ -63,7 +63,7 @@ for each available source, *i.e*. { sg: 10.3 }.
 
 ### Example using `R` code
 
-```{r eval=FALSE}
+```{r example-r-code, eval=FALSE}
 library(httr)
 library(jsonlite)
 library(lubridate)
