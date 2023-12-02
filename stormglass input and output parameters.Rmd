@@ -1,4 +1,5 @@
 ---
+title: "Stormglass Weather"
 editor_options:
   markdown:
     wrap: 72
@@ -11,7 +12,6 @@ library(flextable)
         padding.top = 2, padding.bottom = 2, na_str="–")
 ```
 
-# Weather
 The weather request is used to fetch weather data for a point. The Storm Glass
 API provides marine weather as well as global weather for land and lakes.
 
@@ -98,4 +98,3 @@ json_data <- fromJSON(content(response, "text"))
 # (Note: You may need to adjust the data processing steps based on the structure of the JSON response)
 print(json_data)
 ```
-
