@@ -2,7 +2,7 @@ library(httr)
 library(jsonlite)
 library(lubridate)
 
-secret <- readLines("stormglass-API-key.txt")
+secret <- readLines("../stormglass-API-key.txt")
 
 # set start time
 start <- as.POSIXct("2022-06-10 00:00:00")
