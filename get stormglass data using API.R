@@ -5,13 +5,16 @@ library(lubridate)
 secret <- readLines("../stormglass-API-key.txt")
 
 # set start time
-start <- as.POSIXct("2022-06-10 00:00:00")
+start <- as.POSIXct("2022-03-01 00:00:00")
 
 # set end date
-end <- as.POSIXct("2022-06-30 23:59:59")
+end <- as.POSIXct("2022-03-10 23:59:59")
 
 # API endpoint and parameters
 url <- "https://api.stormglass.io/v2/weather/point"
+#      # XinXiang 35.3, 113.927
+#      # ZhouKou  33.589717, 114.656714
+#      # KaiFeng  34.732160, 114.400189
 params <- list(
   lat = 35.288,
   lng = 113.894,
@@ -38,6 +41,6 @@ print(json_data)
 weather <- as.data.frame(do.call(cbind, json_data$hours))
 weather$time <- as.POSIXct(gsub("T"," ",weather$time), timezone="UTC")
 
-write.csv(weather, file="weather20220610-20220630.csv", row.names = F)
+write.csv(weather, file="XinXiang-sg-20220301-20220310.csv", row.names = F)
 
-with(weather, plot(airTemperature.noaa ~ time, pch=20, type="o"))
+with(weather, plot(airTemperature.noaa ~ time, pch=20, type="o", col=4))
