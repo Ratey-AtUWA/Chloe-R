@@ -1,0 +1,8 @@
+# first clone the repo to local
+git clone --mirror https://github.com/Ratey-AtUWA/Chloe-R
+
+# then clean up using BFG (put bfg-1.14.0.jar in working directory)
+java -jar bfg-1.14.0.jar --strip-biggest-blobs 99 Chloe-R
+
+# finally use git to get rid of the stuff we don't want:
+git reflog expire --expire=now --all && git gc --prune=now --aggressive
