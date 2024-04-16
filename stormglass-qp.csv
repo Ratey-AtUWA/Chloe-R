@@ -1,7 +1,0 @@
-Parameter,Required,Default,Description
-lat,Y,NA,"Latitude of location"
-lng,Y,NA,"Longitude of location"
-params,Y,NA,"Comma separated list of weather parameters"
-start,NA,"Today at 00.00","Timestamp in UTC for first hour - UNIX or URL encoded ISO format."
-end,NA,all,"Timestamp in UTC for last hour."
-source,NA,all,"Single source or comma separated list e.g. noaa or dwd,noaa"

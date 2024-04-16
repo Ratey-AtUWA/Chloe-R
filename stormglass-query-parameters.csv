@@ -1,7 +1,0 @@
-"Parameter","Required","Default","Description"
-"lat","Y","n/a",Latitude of the desired coordinate
-"lng","Y","n/a",Longitude of the desired coordinate
-"params","Y","n/a","Comma separated list of the parameters you want to retrieve, e.g. swellHeight,waveHeight"
-"start",,"Today at 00.00",Timestamp in UTC for first forecast hour - UNIX or URL encoded ISO format.
-"end",,"all","Timestamp in UTC for last forecast hour."
-"source",,"all","Specify a single source or a comma separated list of sources. e.g. noaa or dwd,noaa"
